@@ -32,18 +32,18 @@ namespace CleanCodeLab.Games
                 Console.WriteLine("For practice, number is: " + SecretNumber + "\n");
             }
 
-            string guess = Console.ReadLine();
+            var guess = Console.ReadLine();
 
-            int guesses = 1;
-            string bbcc = CheckBC(SecretNumber, guess);
-            Console.WriteLine(bbcc + "\n");
-            while (bbcc != "BBBB,")
+            var guesses = 1;
+            var bullAndCows = CheckBullsAndCows(SecretNumber, guess);
+            Console.WriteLine(bullAndCows + "\n");
+            while (bullAndCows != "BBBB,")
             {
                 guesses++;
                 guess = Console.ReadLine();
                 Console.WriteLine(guess + "\n");
-                bbcc = CheckBC(SecretNumber, guess);
-                Console.WriteLine(bbcc + "\n");
+                bullAndCows = CheckBullsAndCows(SecretNumber, guess);
+                Console.WriteLine(bullAndCows + "\n");
             }
 
             TopList.SaveToTopList(playerName, guesses);
@@ -73,7 +73,7 @@ namespace CleanCodeLab.Games
             return result;
         }
 
-        public string CheckBC(string goal, string guess)
+        public string CheckBullsAndCows(string goal, string guess)
         {
             int cows = 0, bulls = 0;
             guess += "    ";     // if player entered less than 4 chars
