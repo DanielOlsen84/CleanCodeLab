@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CleanCodeLab.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CleanCodeLab.Games
 {
-    internal class MooGame
+    public class MooGame : IGame
     {
         public string GameTitle { get; set; }
         public string SecretNumber { get; set; }
@@ -72,7 +73,7 @@ namespace CleanCodeLab.Games
             return result;
         }
 
-        static string CheckBC(string goal, string guess)
+        public string CheckBC(string goal, string guess)
         {
             int cows = 0, bulls = 0;
             guess += "    ";     // if player entered less than 4 chars

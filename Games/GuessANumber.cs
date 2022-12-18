@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CleanCodeLab.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CleanCodeLab.Games
 {
-    public class GuessANumber
+    public class GuessANumber : IGame
     {
         public string GameTitle { get; set; }
         public int SecretNumber { get; set; }
