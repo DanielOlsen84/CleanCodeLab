@@ -1,4 +1,6 @@
-﻿namespace CleanCodeLab
+﻿using CleanCodeLab.Games;
+
+namespace CleanCodeLab
 {
     internal class Program
     {
@@ -13,7 +15,7 @@
             {
                 Console.Clear();
 
-                var mooGame = new MooGame(false, true);
+                var mooGame = new GuessANumber(true);
                 mooGame.Start(playerName);
 
                 TopList.PrintTopList();

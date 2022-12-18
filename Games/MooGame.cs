@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CleanCodeLab
+namespace CleanCodeLab.Games
 {
     internal class MooGame
     {
@@ -30,7 +30,7 @@ namespace CleanCodeLab
             {
                 Console.WriteLine("For practice, number is: " + SecretNumber + "\n");
             }
-            
+
             string guess = Console.ReadLine();
 
             int guesses = 1;
@@ -55,9 +55,9 @@ namespace CleanCodeLab
             var random = new Random();
 
             var digits = new List<int>() { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-            
+
             var result = string.Empty;
-            
+
             for (int i = 0; i < 4; i++)
             {
                 var randomInt = random.Next(digits.Count);
