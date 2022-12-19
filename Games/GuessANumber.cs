@@ -1,25 +1,23 @@
 ﻿using CleanCodeLab.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CleanCodeLab.Games
 {
     public class GuessANumber : IGame
     {
+        private readonly ITopList _topList;
+        
         public string GameTitle { get; set; }
         public int SecretNumber { get; set; }
         public int MaxNumber { get; set; }
         public bool IsPracticeMode { get; set; }
 
-        public GuessANumber(bool isPracticeMode, int maxNumber = 100)
+        public GuessANumber(ITopList topList, bool isPracticeMode, int maxNumber = 100)
         {
             GameTitle = "Guess A Number";
             SecretNumber = GetRandomNumber(maxNumber);
             IsPracticeMode = isPracticeMode;
             MaxNumber = maxNumber;
+            _topList = topList;
         }
 
         public int GetRandomNumber(int max) => new Random().Next(max + 1);
@@ -34,17 +32,17 @@ namespace CleanCodeLab.Games
             }
 
             var guess = GetInput();
-            int guesses = 1;
+            var guesses = 1;
             
             while (guess != SecretNumber)
             {
                 Console.WriteLine(guess > SecretNumber ? "You guessed too high!" : "You guessed too low.");
                 guesses++;
                 Console.WriteLine("Guess again:");
-                guess = GetInput();                                
+                guess = GetInput();
             }
 
-            TopList.SaveToTopList(playerName, guesses);
+            _topList.SaveToTopList(playerName, guesses);
 
             Console.WriteLine($"Correct, it took {guesses} guesses!");
         }
@@ -66,6 +64,5 @@ namespace CleanCodeLab.Games
             }
             while (true);
         }
-
     }
 }

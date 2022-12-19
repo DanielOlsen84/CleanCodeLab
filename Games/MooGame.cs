@@ -1,25 +1,23 @@
 ﻿using CleanCodeLab.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CleanCodeLab.Games
 {
     public class MooGame : IGame
     {
+        private readonly ITopList _topList;
+
         public string GameTitle { get; set; }
         public string SecretNumber { get; set; }
         public bool IsPracticeMode { get; set; }
         public bool AllowDoubles { get; set; }
 
-        public MooGame(bool allowDoubles, bool isPracticeMode)
+        public MooGame(ITopList topList, bool allowDoubles, bool isPracticeMode)
         {
             GameTitle = "Moo Game";
             SecretNumber = GetRandomDigits();
             IsPracticeMode = isPracticeMode;
             AllowDoubles = allowDoubles;
+            _topList = topList;
         }
 
         public void Start(string playerName)
@@ -46,7 +44,7 @@ namespace CleanCodeLab.Games
                 Console.WriteLine(bullAndCows + "\n");
             }
 
-            TopList.SaveToTopList(playerName, guesses);
+            _topList.SaveToTopList(playerName, guesses);
 
             Console.WriteLine($"Correct, it took {guesses} guesses!");
         }
@@ -75,11 +73,12 @@ namespace CleanCodeLab.Games
 
         public string CheckBullsAndCows(string goal, string guess)
         {
-            int cows = 0, bulls = 0;
-            guess += "    ";     // if player entered less than 4 chars
-            for (int i = 0; i < 4; i++)
+            var cows = 0;
+            var bulls = 0;
+            
+            for (int i = 0; i < goal.Length; i++)
             {
-                for (int j = 0; j < 4; j++)
+                for (int j = 0; j < guess.Length; j++)
                 {
                     if (goal[i] == guess[j])
                     {

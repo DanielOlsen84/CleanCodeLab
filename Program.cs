@@ -1,6 +1,5 @@
 ﻿using CleanCodeLab.Games;
 using CleanCodeLab.Interfaces;
-using System.Reflection.Metadata.Ecma335;
 
 namespace CleanCodeLab
 {
@@ -11,7 +10,9 @@ namespace CleanCodeLab
             var quit = false;
 
             Console.WriteLine("Enter your user name:\n");
-            string playerName = Console.ReadLine();
+            var playerName = Console.ReadLine();
+
+            ITopList topList = new TopList();
 
             while (!quit)
             {
@@ -26,16 +27,16 @@ namespace CleanCodeLab
 
                 IGame game = selectedGame switch
                 {
-                    1 => new MooGame(false, true),
-                    2 => new GuessANumber(true),
+                    1 => new MooGame(topList, false, false),
+                    2 => new GuessANumber(topList, false),
                 };
 
                 game.Start(playerName);
 
-                TopList.PrintTopList();
+                topList.PrintTopList();
 
                 Console.WriteLine("Enter N to quit or enter any other key to play again.");
-                string answer = Console.ReadLine();
+                var answer = Console.ReadLine();
                 if (answer.ToLower() == "n")
                 {
                     quit = true;
