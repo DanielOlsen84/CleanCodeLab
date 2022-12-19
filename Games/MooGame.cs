@@ -1,4 +1,5 @@
-﻿using CleanCodeLab.Interfaces;
+﻿using CleanCodeLab.Enums;
+using CleanCodeLab.Interfaces;
 
 namespace CleanCodeLab.Games
 {
@@ -10,6 +11,7 @@ namespace CleanCodeLab.Games
         public string SecretNumber { get; set; }
         public bool IsPracticeMode { get; set; }
         public bool AllowDoubles { get; set; }
+        public GameNameEnum.GameName GameName { get; set; } = GameNameEnum.GameName.MooGame;
 
         public MooGame(ITopList topList, bool allowDoubles, bool isPracticeMode)
         {
@@ -44,7 +46,7 @@ namespace CleanCodeLab.Games
                 Console.WriteLine(bullAndCows + "\n");
             }
 
-            _topList.SaveToTopList(playerName, guesses);
+            _topList.SaveToTopList(GameName, playerName, guesses);
 
             Console.WriteLine($"Correct, it took {guesses} guesses!");
         }

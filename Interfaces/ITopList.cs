@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CleanCodeLab.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,7 @@ namespace CleanCodeLab.Interfaces
 {
     public interface ITopList
     {
-        public void SaveToTopList(string playerName, int guesses);
-        public void PrintTopList();
+        public void SaveToTopList(GameNameEnum.GameName gameName, string playerName, int guesses);
+        public void PrintTopList(GameNameEnum.GameName gameName);
     }
 }

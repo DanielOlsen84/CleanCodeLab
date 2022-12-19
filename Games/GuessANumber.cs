@@ -1,4 +1,5 @@
-﻿using CleanCodeLab.Interfaces;
+﻿using CleanCodeLab.Enums;
+using CleanCodeLab.Interfaces;
 
 namespace CleanCodeLab.Games
 {
@@ -10,6 +11,7 @@ namespace CleanCodeLab.Games
         public int SecretNumber { get; set; }
         public int MaxNumber { get; set; }
         public bool IsPracticeMode { get; set; }
+        public GameNameEnum.GameName GameName { get; set; } = GameNameEnum.GameName.GuessANumber;
 
         public GuessANumber(ITopList topList, bool isPracticeMode, int maxNumber = 100)
         {
@@ -42,7 +44,7 @@ namespace CleanCodeLab.Games
                 guess = GetInput();
             }
 
-            _topList.SaveToTopList(playerName, guesses);
+            _topList.SaveToTopList(GameName, playerName, guesses);
 
             Console.WriteLine($"Correct, it took {guesses} guesses!");
         }

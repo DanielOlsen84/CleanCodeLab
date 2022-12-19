@@ -1,25 +1,39 @@
-﻿using CleanCodeLab.Interfaces;
+﻿using CleanCodeLab.Enums;
+using CleanCodeLab.Interfaces;
 
 namespace CleanCodeLab
 {
     public class TopList : ITopList
     {
-        private readonly string filePath = "result.txt";
+        private readonly string mooGameFilePath = "MooGameResult.txt";
+        private readonly string guessANumberFilePath = "GuessANumberResult.txt";
         private readonly string delimiter = "#&#";
-        public void SaveToTopList(string playerName, int guesses)
+        public void SaveToTopList(GameNameEnum.GameName gameName, string playerName, int guesses)
         {
+            var filePath = gameName switch
+            {
+                GameNameEnum.GameName.MooGame => mooGameFilePath,
+                GameNameEnum.GameName.GuessANumber => guessANumberFilePath,
+            };
+
             var stream = new StreamWriter(filePath, append: true);
             stream.WriteLine(playerName + delimiter + guesses);
             stream.Close();
         }
 
-        public List<string> LoadTopList() => File.ReadAllLines(filePath).ToList();
+        public List<string> LoadTopList(string filePath) => File.ReadAllLines(filePath).ToList();
 
-        public List<string> GetTopList()
+        public List<string> GetTopList(GameNameEnum.GameName gameName)
         {
             var results = new List<PlayerData>();
-            
-            foreach (var player in LoadTopList())
+
+            var filePath = gameName switch
+            {
+                GameNameEnum.GameName.MooGame => mooGameFilePath,
+                GameNameEnum.GameName.GuessANumber => guessANumberFilePath,
+            };
+
+            foreach (var player in LoadTopList(filePath))
             {
                 var nameAndScore = player.Split(new string[] { delimiter }, StringSplitOptions.None);
                 var name = nameAndScore[0];
@@ -41,10 +55,10 @@ namespace CleanCodeLab
             return results.Select(x => string.Format("{0,-9}{1,5:D}{2,9:F2}", x.Name, x.TotalGames, x.Average())).ToList();
         }
 
-        public void PrintTopList()
+        public void PrintTopList(GameNameEnum.GameName gameName)
         {
             Console.WriteLine("Player   games average");
-            GetTopList().ForEach(x => Console.WriteLine(x));
+            GetTopList(gameName).ForEach(x => Console.WriteLine(x));
         }
     }
 }

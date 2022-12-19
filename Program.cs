@@ -33,7 +33,7 @@ namespace CleanCodeLab
 
                 game.Start(playerName);
 
-                topList.PrintTopList();
+                topList.PrintTopList(game.GameName);
 
                 Console.WriteLine("Enter N to quit or enter any other key to play again.");
                 var answer = Console.ReadLine();
